@@ -1,27 +1,37 @@
 import java.util.ArrayList;
-//otherStations.get(i)????
 public class TransferStation extends Station {
-    private ArrayList<Station> prev;
-    private ArrayList<Station> next;
+    public ArrayList<Station> otherStations;
+    private String prevStation;
+    private String nextStation;
     public TransferStation(String n, String c) {
         super(n, c);
-        prev = new ArrayList<>();
-        next = new ArrayList<>();
+        otherStations = new ArrayList<>();
     }
 
     public void addTransferStationPrev(Station s){
-        prev.add(s);
-        s.next = this;
+        otherStations.add(s);
+        s.next= this;
     }
 
     public void addTransferStationNext(Station s){
-        next.add(s);
+        otherStations.add(s);
         s.prev = this;
     }
 
-    public String toString(){
-        return "TRANSFER" + super.toString(); //fix this
+    public String toString() {
+        if(prev == null){
+            prevStation = "none";
+        }
+        if(next ==null){
+            nextStation = "none";
+        }
+        String result = "TRANSFERSTATION " + name + ": " + color + " line, in service: " + inService + ", previous station: " + prevStation + ", next station: " + nextStation + "\n"+ "\tTransfers: \n";
+        for (int i = 0; i<otherStations.size();i++) {
+            result += "\t" + otherStations.get(i).toString() + "\n";
+        }
+        return result;
     }
+    
 
 
 }
