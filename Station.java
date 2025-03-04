@@ -4,13 +4,14 @@ public class Station {
     protected  boolean inService;
     protected Station next;
     protected Station prev;
-    private int dist = 0;
-    public Station(String n, String c){
+    private int dist;
+    public Station(String c, String n){
         this.name = n;
         this.color = c;
         this.inService = true;
         this.next = null;
         this.prev= null;
+        dist  =0;
     }
 
     public void addNext(Station s){
@@ -43,6 +44,10 @@ public class Station {
         return prev;
     }
 
+    public void setPrev(Station s){
+        this.prev = s;
+    }
+
     public boolean isAvailable(){
         return this.inService;
     }
@@ -65,26 +70,28 @@ public class Station {
         if(this.equals(dest)){
             return 0;
         }
-        if(this.next != null){
-            dist += 1 + this.next.tripLength(dest);
-            return dist;
+        if(this.next.equals(dest)){
+            return 1;
         }
-        return -1;
+        dist += 1 + this.next.tripLength(dest);
+        return dist;
     }
 
 
-    public String toString(){
-    if(prev != null && next!= null){
-    return "STATION " + name + ": " + color + " line," + " in service: " + inService + ", " + " previous station: " + prev + ", next station: " + next;
+    public String toString() {
+        String prevStation = "none";
+        String nextStation = "none";
+        
+        if (prev != null) {
+            prevStation = prev.name;
+        }
+        
+        if (next != null) {
+            nextStation = next.name;
+        }
+        return "STATION " + name + ": " + color + " line, " + "in service: " + inService + ", " + "previous station: " + prevStation + ", " + "next station: " + nextStation;
     }
-    else if(prev == null){
-        return "STATION " + name + ": " + color + " line," + " in service: " + inService + ", " + " previous station: " + "none" + ", next station: " + next;
-    }
-    else if (next == null){
-        return "STATION " + name + ": " + color + " line," + " in service: " + inService + ", " + " previous station: " + prev + ", next station: " + "none";
-    }
-    return "STATION " + name + ": " + color + " line," + " in service: " + inService + ", " + " previous station: " + "none" + ", next station: " + "none";
-}
+    
 
 }
 
