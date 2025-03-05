@@ -4,12 +4,15 @@ public class EndStation extends Station {
     }
 
     public void makeEnd(){
-        if(this.next!=null){
-            setPrev(next);
-            setNext(prev);
+        if(this.prev!=null){
+        this.next = this.prev;
         }
-        
+
+        else if(this.next!=null){
+            this.prev= this.next;
+        }
     }
+        
 
     public String toString() {
         String prevStation = "none";
@@ -20,7 +23,7 @@ public class EndStation extends Station {
         }
         
         if (next != null) {
-            nextStation = next.name; 
+            nextStation = next.name;
         }
         return "ENDSTATION " + name + ": " + color + " line, " + "in service: " + inService + ", " + "previous station: " + prevStation + ", " + "next station: " + nextStation;
     }
