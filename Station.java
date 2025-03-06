@@ -24,28 +24,14 @@ public class Station {
         s.next = this;
     }
 
-    public String getName(){
-        return this.name;
-    }
-
-    public String getColor(){
-        return this.color;
-    }
+    
 
     public Station getNext(){
         return next;
     }
 
-    public void setNext(Station s){
-        this.next = s;
-    }
-
     public Station getPrev(){
         return prev;
-    }
-
-    public void setPrev(Station s){
-        this.prev = s;
     }
 
     public boolean isAvailable(){
@@ -55,7 +41,7 @@ public class Station {
         this.inService = !this.inService;
     }
     public boolean equals(Station s){
-        if(this.name.equals(s.getName())&& this.color.equals(s.getColor())){
+        if(this.name.equals(s.name)&& this.color.equals(s.color)){
             return true;
         }
         return false;
@@ -66,9 +52,15 @@ public class Station {
         s.prev = this;
     }
 
-    public int tripLength(Station dest){
+    public int tripLength(Station dest){//fix
         if(this.equals(dest)){
             return 0;
+        }
+        if(this.next == null){
+            return -1;
+        }
+        if(this.next instanceof TransferStation){
+            dist += 1 + this.next.tripLength(dest);
         }
         if(this.next.equals(dest)){
             return 1;
@@ -79,15 +71,19 @@ public class Station {
 
 
     public String toString() {
-        String prevStation = "none";
-        String nextStation = "none";
-        
-        if (prev != null) {
-            prevStation = prev.name;
+        String prevStation = " ";
+        String nextStation = " ";
+        if(this.prev == null){
+            prevStation = "none";
         }
-        
-        if (next != null) {
-            nextStation = next.name;
+        else{
+        prevStation = this.prev.name;
+        }
+        if(this.next == null){
+            nextStation = "none";
+        }
+        else{
+        nextStation = this.next.name;
         }
         return "STATION " + name + ": " + color + " line, " + "in service: " + inService + ", " + "previous station: " + prevStation + ", " + "next station: " + nextStation;
     }

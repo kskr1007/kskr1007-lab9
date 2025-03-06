@@ -15,15 +15,19 @@ public class EndStation extends Station {
         
 
     public String toString() {
-        String prevStation = "none";
-        String nextStation = "none";
-        
-        if (prev != null) {
-            prevStation = prev.name; 
+        String prevStation = " ";
+        String nextStation = " ";
+        if(this.prev == null ){
+            prevStation = "none";
         }
-        
-        if (next != null) {
-            nextStation = next.name;
+        else{
+        prevStation = this.prev.name;
+        }
+        if(this.next == null){
+            nextStation = "none";
+        }
+        else{
+        nextStation = this.next.name;
         }
         return "ENDSTATION " + name + ": " + color + " line, " + "in service: " + inService + ", " + "previous station: " + prevStation + ", " + "next station: " + nextStation;
     }

@@ -1,7 +1,6 @@
+import static org.junit.Assert.*;
+
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import java.util.*;
-import java.io.*;
 
 public class Lab9_Tester {
 

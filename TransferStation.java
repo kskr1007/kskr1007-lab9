@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 public class TransferStation extends Station {
     public ArrayList<Station> otherStations;
-    private String prevStation;
-    private String nextStation;
     public TransferStation(String n, String c) {
         super(n, c);
         otherStations = new ArrayList<>();
@@ -10,7 +8,7 @@ public class TransferStation extends Station {
 
     public void addTransferStationPrev(Station s){
         otherStations.add(s);
-        s.next= this;
+        s.next = this;
     }
 
     public void addTransferStationNext(Station s){
@@ -19,11 +17,19 @@ public class TransferStation extends Station {
     }
 
     public String toString() {
-        if(prev == null){
+        String prevStation = " ";
+        String nextStation = " ";
+        if(this.prev == null){
             prevStation = "none";
         }
-        if(next ==null){
+        else{
+        prevStation = this.prev.name;
+        }
+        if(this.next == null){
             nextStation = "none";
+        }
+        else{
+        nextStation = this.next.name;
         }
         String result = "TRANSFERSTATION " + name + ": " + color + " line, in service: " + inService + ", previous station: " + prevStation + ", next station: " + nextStation + "\n"+ "\tTransfers: \n";
         for (int i = 0; i<otherStations.size();i++) {
