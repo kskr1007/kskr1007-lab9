@@ -31,7 +31,6 @@ public static void main(String[] args){
     makeOrangeLine();
     makeRedLine();
     makePurpleLine();
-
     int stops = va_square.tripLength(metro_center);
     System.out.println("There are " + stops + " stops between Virginia Square and Metro Center");
 }
@@ -65,6 +64,7 @@ public static void initialize(){
 
 public static EndStation makeOrangeLine(){
     va_square.connect(clarendon);
+    va_square.makeEnd();
     clarendon.connect(court_house);
     court_house.connect(rosslyn);
     rosslyn.connect(foggy_bottom);
@@ -73,23 +73,33 @@ public static EndStation makeOrangeLine(){
     mcpherson_square.connect(metro_center);
     metro_center.connect(federal_triangle);
     federal_triangle.connect(smithsonian);
+    smithsonian.makeEnd();
     return va_square;
 
 }
 
 public static EndStation makeRedLine(){
     woodley_park.connect(dupont_circle);
+    woodley_park.makeEnd();
     dupont_circle.connect(farragut_north);
-    farragut_north.connect(metro_center);
+    mcpherson_square.connect(metro_center);
+    metro_center.addTransferStationPrev(farragut_north);
+    metro_center.addTransferStationNext(gallery_place);
+    gallery_place.connect(judiciary_square);
+    judiciary_square.makeEnd();
     return woodley_park;
 }
 
 public static EndStation makePurpleLine(){
     s1.connect(s2);
+    s1.makeEnd();
     s2.connect(s3);
     s3.connect(metro_center);
-    metro_center.connect(s4);
+    mcpherson_square.connect(metro_center);
+    metro_center.addTransferStationPrev(s3);
+    metro_center.addTransferStationNext(s4);
     s4.connect(s5);
+    s5.makeEnd();
     return s1;
 }
 }
